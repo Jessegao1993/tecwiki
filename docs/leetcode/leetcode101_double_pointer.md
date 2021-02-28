@@ -68,3 +68,42 @@ var merge = function(nums1, m, nums2, n) {
 };
 ```
 * * *
+#### 680
+##### 题目描述
+给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。
+##### 输入输出样例
+输入是一个非空字符串，输出是一个布尔值，表示是否能成为回文字符串。
+```
+input: "aba"
+output: True
+```
+##### 题解
+使用双指针同时从左右两端开始对比每个字符，如果都相同就缩小范围，如果不相同就先看看是否已经删除过一次字符，因为要求最多只能删除一个字符，所以这里如果已经删除过就不符合条件，直接判断为非；否则就删除左或右一个字符看看删除后是否满足继续对比的条件，直到对比完毕。
+##### 代码
+```
+var validPalindrome = function(s) {
+    let l = 0;//双指针：左
+    let r = s.length-1;//双指针：右
+    let remain = 1;
+    while(l<r){
+      if(s[l]===s[r]){
+        l++;
+        r--;
+      }else{
+        if(remain===0){
+          return false;
+        }
+        if(s[l+1]===s[r]&&s[l+2]===s[r-1]){
+          remain--;
+          l++;
+        }else if(s[l]===s[r-1]){
+          remain--;
+          r--;
+        }else{
+          return false;
+        }
+      }
+    }
+    return true;
+};
+```
