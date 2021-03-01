@@ -10,6 +10,6 @@
 	- [贪心算法](leetcode/leetcode101_greedy_algorithm.md)
 	- [双重指针](leetcode/leetcode101_double_pointer.md)
 	- [二分查找](leetcode/leetcode101_binary_search.md)
-	- [基本排序算法](leetcode/bubble_sort.md)
+	- [基本排序算法](leetcode/leetcode101_basic_sort_algoritm.md)
 	
 

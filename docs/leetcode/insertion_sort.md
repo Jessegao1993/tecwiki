@@ -6,4 +6,20 @@
 - 快慢指针（链表找环路问题）
 - 滑动窗口（指向同一数组，遍历方向相同不相交，用于区间搜索）
 
-### Leetcode相关题目
+### 代码 
+```
+function insertionSort(arr) {
+    
+        for(let i=1; i<arr.length;i++){//假设第一位有序，从第二位逐次向后扫描排序
+          let key = arr[i];//保存需要插入的元素的值
+          let j = i-1;
+          while(j>=0&&arr[j]>key){//在有序数组中从后向前对比
+            arr[j+1] = arr[j];//寻找插入的空间，直到第一个元素
+            j--;
+          }
+            arr[j+1] = key;//找到后进行插入操作
+        }
+       return arr;
+    
+}
+```
