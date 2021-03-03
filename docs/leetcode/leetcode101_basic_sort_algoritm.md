@@ -142,3 +142,96 @@ function selectsort(arr){
 }
 ```
 * * *
+#### 6. 归并排序
+##### 算法解释
+算法是采用分治法（Divide and Conquer）的一个非常典型的应用。
+-  分解（Divide）：将n个元素分成个含n/2个元素的子序列。
+-  解决（Conquer）：用合并排序法对两个子序列递归的排序。
+-  合并（Combine）：合并两个已排序的子序列已得到排序结果。
+##### 性质
+##### 代码
+```
+function mergesort(arr){
+	let len = arr.length;
+  if(len<2){//如果数组只有一个或零个元素，直接返回数组
+  	return arr;
+  }
+  
+  let mid = Math.floor(len/2);//分治法，以数组中间位置分割
+  let left = arr.slice(0,mid);
+  let right = arr.slice(mid);
+  
+ 	return merge(mergesort(left),mergesort(right));//递归
+}
+
+function merge(left,right){//归并
+	const res = [];
+  while(left.length&&right.length){
+  	if(left[0]<=right[0]){
+    	res.push(left.shift());
+    }else{
+    	res.push(right.shift());
+    }
+  }
+  while(left.length){
+  	res.push(left.shift());
+  }
+  while(right.length){
+  	res.push(right.shift());
+  }
+  return res;
+}
+```
+* * *
+#### 7.堆排序
+##### 算法解释
+堆是一种特殊的树。
+- 堆是一个完全二叉树。完全二叉树：除了最后一层，其他层的节点个数都是满的，最后一层的节点都靠左排列。
+- 堆中每一个节点的值都必须大于等于（或小于等于）其子树中每个节点的值。也可以说：堆中每个节点的值都大于等于（或者小于等于）其左右子节点的值。
+- 对于每个节点的值都大于等于子树中每个节点值的堆，我们叫作大顶堆。对于每个节点的值都小于等于子树中每个节点值的堆，我们叫作小顶堆。
+
+堆排序的原理是先按大（小）顶堆构建堆，其中大（小）顶堆的一个特性是数据将被从大到小（从小到大）取出，将取出的数字按照相反的顺序进行排列，数字就完成了排序。
+
+堆排序步骤：
+1. 创建一个堆 H[0……n-1]；
+2. 把堆首（最大值）和堆尾互换；
+3. 把堆的尺寸缩小 1，并调用 shift_down(0)，目的是把新的数组顶端数据调整到相应位置；
+4. 重复步骤 2，直到堆的尺寸为 1。
+
+##### 性质
+##### 代码
+```
+function heapsort(arr){
+	//初始化堆
+  for(let i = Math.floor(arr.length/2-1);i>=0;i--){//基于根结点和所有子树根结点
+  	heapify(arr,i,arr.length);
+  }
+  //堆排序
+  for(let i = Math.floor(arr.length-1);i>0;i--){
+  	swap(arr,0,i);//交换根结点和最末尾叶子结点
+    heapify(arr,0,i);//针对新的根结点，重新维护最大堆的性质，最后一个子结点是已找到的最大值，不用比较
+  }
+  return arr;
+}
+//交换函数
+function swap(arr,i,j){
+	let temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+//维护堆的性质
+function heapify(arr,i,length){
+	let temp = arr[i];
+  for(let j=2*i+1;j<length;j=j*2+1){
+    if(j+1<length&&arr[j]<arr[j+1]){
+    	j++;//找到两个子结点中较小的一个，与父结点比较
+    }
+    if(temp < arr[j]){
+    	swap(arr,i,j);
+      i=j;
+    }else{
+    break;
+    }
+  }
+}
+```
