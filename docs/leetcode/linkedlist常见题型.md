@@ -69,24 +69,83 @@ var reverseList = function(head) {
 	}
 };
 ```
-
+---
 - Leetcode 92 Reverse Linked List 【medium】
 题意：从m->n的位置翻转链表(1<=m<=n<=length(list))（翻转单链表局部）
 ```
 Input:1->2->3->4->5->NULL, m = 2, n = 4
 Output:1->4->3->2->5->NULL
 ```
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+---
+2. 合并类
+- Leetcode 21 merge two sorted lists 【easy】
+题意：合并两个有序链表
+```
+Input: 1->2->4, 1->3->4
+Output: 1->1->2->3->4->4
+```
+代码（迭代法）
+```
+/**
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+ var mergeTwoLists = function(l1, l2) {
+ 	let mergelist = new ListNode(0);
+ 	let x = mergelist;
+ 	
+ 	while(l1&&l2){
+ 		if(l1.val>l2.val){
+ 			x.next = l2;
+ 			l2 = l2.next;
+ 		}else{
+ 			x.next = l1;
+ 			l1 = l1.next;
+ 		}
+ 		x = x.next;
+ 	}
+ 	if(l1){
+ 		x.next = l1;
+ 	}
+ 	if(l2){
+ 		x.next = l2;
+ 	}
+ 	return mergelist.next;
+ }
+```
+代码（递归法）
+```
+/**
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+ var mergeTwoLists = function(l1, l2) {
+ 	if(!l1){
+ 		return l2;
+ 	}
+ 	if(!l2){
+ 		return l1;
+ 	}
+ 	if(l1.val<l2.val){
+ 		l1.next = mergeTwoLists(l1.next,l2);
+ 		return l1;
+ 	}else{
+ 		l2.next = mergeTwoLists(l2.next,l1);
+ 		return l2;
+ 	}
+ }
+```
