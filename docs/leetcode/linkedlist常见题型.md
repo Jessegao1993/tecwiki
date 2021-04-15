@@ -17,12 +17,13 @@
 
 1. 反转类
 - Leetcode 206 Reverse Linked List 【easy】
-题意：翻转一个单向链表
+- 题意：翻转一个单向链表
 ```
 Input：1->2->3->4->5->NULL
 Output：5->4->3->2->1->NULL
 ```
 代码（迭代法）
+
 ```
 /**
  * function ListNode(val, next) {
@@ -70,21 +71,15 @@ var reverseList = function(head) {
 };
 ```
 ---
-- Leetcode 92 Reverse Linked List 【medium】
-题意：从m->n的位置翻转链表(1<=m<=n<=length(list))（翻转单链表局部）
-```
-Input:1->2->3->4->5->NULL, m = 2, n = 4
-Output:1->4->3->2->5->NULL
-```
----
 2. 合并类
 - Leetcode 21 merge two sorted lists 【easy】
-题意：合并两个有序链表
+- 题意：合并两个有序链表
 ```
 Input: 1->2->4, 1->3->4
 Output: 1->1->2->3->4->4
 ```
 代码（迭代法）
+
 ```
 /**
  * function ListNode(val, next) {
@@ -121,6 +116,7 @@ Output: 1->1->2->3->4->4
  }
 ```
 代码（递归法）
+
 ```
 /**
  * function ListNode(val, next) {
@@ -149,3 +145,4 @@ Output: 1->1->2->3->4->4
  	}
  }
 ```
+--- 
