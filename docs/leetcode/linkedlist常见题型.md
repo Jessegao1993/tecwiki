@@ -22,7 +22,7 @@
 Input：1->2->3->4->5->NULL
 Output：5->4->3->2->1->NULL
 ```
-代码（迭代法）
+- 代码（迭代法）
 
 ```
 /**
@@ -47,7 +47,7 @@ var reverseList = function(head) {
    return pre;
 };
 ```
-代码（递归法）
+- 代码（递归法）
 ```
 /**
  * function ListNode(val, next) {
@@ -78,7 +78,7 @@ var reverseList = function(head) {
 Input: 1->2->4, 1->3->4
 Output: 1->1->2->3->4->4
 ```
-代码（迭代法）
+- 代码（迭代法）
 
 ```
 /**
@@ -115,7 +115,7 @@ Output: 1->1->2->3->4->4
  	return mergelist.next;
  }
 ```
-代码（递归法）
+- 代码（递归法）
 
 ```
 /**
@@ -145,4 +145,82 @@ Output: 1->1->2->3->4->4
  	}
  }
 ```
---- 
+---
+3. 环形链表
+- Leetcode 141 Linked List Cycle 【easy】
+- 题意：判断一个单链表是否存在环。
+- 思路：使用快慢指针法。
+```
+Input : head = [3, 2, 0, -4], pos = 1
+Output : true
+why：在这个单链表中存在一个环，尾节点指向第二个节点
+```
+- 代码（快慢指针）
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function(head) {
+	let fast = head;
+	let slow = head;
+	while(fast&&fast.next.next){
+		fast = fast.next.next;
+		slow = slow.next;
+		if(fast==slow){
+			return true;
+		}
+	}
+	return false;
+}
+```
+---
+4. 拆分链表
+- Leetcode 86 Partition List 【medium】
+- 题意：给定一个链表以及一个目标值，把小于该目标值的所有节点都移至链表的前端，大于或等于目标值的节点移至链表的尾端，同时要保持这两部分在原先链表中的相对位置。
+- 思路：建立一个链表头less和链表头greater，遍历链表head，如果head.val<x，放入less中，如果head.val>=x放入greater中。最后合并less和greater。
+- 代码
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function(head, x) {
+	let node = new ListNode(0),less = node, node2 = new ListNode(0), greater = node2;
+	
+	while(head){
+		if(head.val<x){
+			less.next = head;
+			less = less.next
+		}else{
+			greater.next = head;
+			greater = greater.next
+		}
+		head = head.next;
+	}
+	
+	less.next = node2.next;
+	greater.next = null;
+	
+	return node.next;
+}
+```
+---
