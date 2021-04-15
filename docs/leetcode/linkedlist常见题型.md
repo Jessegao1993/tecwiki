@@ -48,6 +48,7 @@ var reverseList = function(head) {
 };
 ```
 - 代码（递归法）
+
 ```
 /**
  * function ListNode(val, next) {
