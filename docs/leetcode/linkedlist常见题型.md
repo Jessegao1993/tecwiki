@@ -225,3 +225,76 @@ var partition = function(head, x) {
 }
 ```
 ---
+5. 排序链表
+- Leetcode 148 Sort List【medium】
+- 题意：在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。
+- 思路：使用归并排序的思路，把链表分成一个一个的两段，然后合并这两段链表。找到链表的中点，以中点为分界，将链表拆分成两个子链表。寻找链表的中点可以使用快慢指针的做法，快指针每次移动 2 步，慢指针每次移动 1 步，当快指针到达链表末尾时，慢指针指向的链表节点即为链表的中点。对两个子链表分别排序。将两个排序后的子链表合并，得到完整的排序后的链表。
+```
+Input: 4->2->1->3
+Output: 1->2->3->4
+```
+
+- 代码：
+
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var sortList = function (head) {
+  if(head == null || head.next == null){
+    return head;
+  }
+
+  let slow = head;
+  let fast = head;
+  while(fast.next && fast.next.next){
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  const mid = slow.next;
+  slow.next = null;
+  let left = sortList(head);
+  let right = sortList(mid);
+  
+  const dummy = new ListNode(0);
+  let h = dummy;
+
+  while(left&&right){
+    if(left.val<right.val){
+        h.next = left;
+        left = left.next;
+    }else{
+        h.next = right;
+        right = right.next;
+    }
+    h = h.next;
+  }
+
+  if(left){
+    h.next = left;
+  }
+  if(right){
+    h.next = right;
+  }
+
+  return dummy.next;
+};
+```
+---
+6. 删除类
+- Leetcode 19 Remove Nth Node From End of List 【Medium】
+- 题意：删除链表中倒数第n个节点。
+```
+Given a list: 1->2->3->4->5, and n = 2.
+删除链表中导数第二个节点，变成1->2->3->5.
+```
+- 思路：双指针法 。在head前加一个虚拟节点dummy node，并设置两个指针fast和slow。 fast指针先向前移动n个节点（从dummy节点开始移动，所以实际上是移动到了n-1位），然后fast和slow同时开始移动，当fast.next == None时，slow节点指向的就是需要删除的节点前面的一个节点，将其指向.next.next即可
+
