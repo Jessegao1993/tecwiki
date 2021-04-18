@@ -296,5 +296,41 @@ var sortList = function (head) {
 Given a list: 1->2->3->4->5, and n = 2.
 删除链表中导数第二个节点，变成1->2->3->5.
 ```
-- 思路：双指针法 。在head前加一个虚拟节点dummy node，并设置两个指针fast和slow。 fast指针先向前移动n个节点（从dummy节点开始移动，所以实际上是移动到了n-1位），然后fast和slow同时开始移动，当fast.next == None时，slow节点指向的就是需要删除的节点前面的一个节点，将其指向.next.next即可
+- 思路：双指针法 。设置两个指针fast和slow。 fast指针先向前移动n个节点，然后fast和slow同时开始移动，当fast.next == null时，slow节点指向的就是需要删除的节点前面的一个节点，将其指向.next.next即可
+- 代码：
+```
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    let fast = head;
+    let slow = head;
+    
+    while(n--){
+    	fast = fast.next;
+    }
+    while(fast&&fast.next){
+    	slow = slow.next;
+    	fast = fast.next;
+    }
+    
+    if(!fast){
+    	head = head.next;
+    }else{
+    	slow.next = slow.next.next;
+    }
+    
+    
 
+    return head;
+};
+```
