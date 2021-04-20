@@ -6,6 +6,7 @@
 	- Math
 		- [Math对象的方法](Js/Math_mathods.md)
 - **Leetcode 刷题**
+	- [刷题倒计时](leetcode/timer.html)
 	- [Array问题](leetcode/Array问题.md)
 	- [贪心算法](leetcode/leetcode101_greedy_algorithm.md)
 	- [双重指针](leetcode/leetcode101_double_pointer.md)
