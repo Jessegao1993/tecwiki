@@ -14,5 +14,7 @@
 	- [linkedlist常见题型](leetcode/linkedlist常见题型.md)
 - **数组系列**
 	- [两个数组的交集(350)](leetcode/两个数组的交集.md)
+	- [最长公共前缀(14)](leetcode/最长公共前缀.md)
+	- [买卖股票的最佳时机(leetcode 122)](leetcode/买卖股票的最佳时机.md)
 	
 
