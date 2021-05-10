@@ -19,5 +19,5 @@
 	- [原地删除(27)](leetcode/原地删除.md)
 	- [加一(66)](leetcode/加一.md)
 	- [两数之和(1)](leetcode/两数之和.md)
-	
+	- [Z字形变换(6)](leetcode/Z字形变换.md)
 
