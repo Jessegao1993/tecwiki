@@ -30,9 +30,7 @@
 	- [反转字符串(301)](leetcode/反转字符串.md)
 	- [字符串中的第一个唯一字符(387)](leetcode/字符串中的第一个唯一字符.md)
 	- [实现Sunday匹配](leetcode/实现Sunday匹配.md)
-	- [大数打印](leetcode/大数打印.md)
 	- [验证回文串(125)](leetcode/验证回文串.md)
 	- [KMP](leetcode/KMP.md)	
 	- [旋转字符串(796)](leetcode/旋转字符串.md)
 	- [最后一个单词的长度(58)](leetcode/最后一个单词的长度.md)
-	
