@@ -12,6 +12,10 @@
 	- [二分查找](leetcode/leetcode101_binary_search.md)
 	- [基本排序算法](leetcode/leetcode101_basic_sort_algoritm.md)
 	- [linkedlist常见题型](leetcode/linkedlist常见题型.md)
+- **二分查找**
+    - [二分查找(704)](leetcode/二分查找.md) 
+    - [寻找比目标字母大的最小字母(744)](leetcode/寻找比目标字母大的最小字母.md)
+    - [搜索旋转排序数组II(81)](leetcode/搜索旋转排序数组II.md)
 - **数组系列**
 	- [两个数组的交集(350)](leetcode/两个数组的交集.md)
 	- [最长公共前缀(14)](leetcode/最长公共前缀.md)
