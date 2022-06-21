@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>linkedlist-basic</title>
+</head>
+<body>
+    <script>
+        // js无原生链表，用类模拟一个
+        // 需要一个链表体类和一个节点类
+
+        // 节点类
+       class Node{
+            constructor(data){
+                this.data = data
+                this.next = null
+            }
+       }
+
+        // 链表体类   
+       class LinkedList{
+            constructor(){
+                this.head = null
+                this.tail = null
+                this.length = 0
+            }
+
+            // 末尾追加节点
+            append(data){
+                let node = new Node(data)
+                if (!this.head) {
+                    this.head = node
+                } else {
+                    let p = this.head
+                    while (p.next) {
+                        p = p.next
+                    }
+                    p.next = node
+                }
+                this.length++
+            }
+
+            // 查找节点
+            find(data){
+                let p = this.head
+                while (p && p.data != data) {
+                    p = p.next
+                }
+                return p
+            }
+
+           
+            // 插入节点
+            insertNode(pos,data){
+                let newNode = new Node(data)
+                let current = this.head
+                let pre = this.head
+                if (pos>this.length) {
+                    console.log('超范围')
+                } else {
+                    if (pos) {
+                        let i = 1
+                        while (pos<i) {
+                            pre = current
+                            current = current.next
+                            i++
+                        }
+                        pre.next = newNode
+                        newNode.next = current
+                    } else {
+                        newNode.next = this.head
+                        this.head = newNode
+                    }
+                    this.length++
+                }
+            }
+       }
+
+       let llist = new LinkedList()
+       llist.append(1)
+       llist.append(2)
+       llist.append(3)
+       llist.append(4)
+       llist.append(5)
+       llist.append(6)
+       llist.insertNode(4,100)
+       console.log(llist.find(100))
+    </script>
+</body>
+</html>
