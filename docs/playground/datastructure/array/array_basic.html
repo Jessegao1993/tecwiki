@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>array_basic</title>
+</head>
+<body>
+   
+    <script>
+        let arr = [1,2,3,4,5,6,7,8]
+        let len = arr.length
+
+        // 控制台输出元素
+        function showArr(arr){
+            for (let index = 0; index < len; index++) {
+                console.log(arr[index])
+            }
+        }
+
+        
+        // 数组读取（随机读取）
+        // console.log(arr[0])
+
+        // 更新元素(直接利用数组下标，就可以把新值赋给该元素，修改原数组)
+        // arr[1] = 9 //通过下标
+        
+        // 更新元素（利用API，修改原数组）
+        // arr.splice(1,1,9)//args: index,how many to delete,new elements to insert
+        // console.log(arr)
+
+        // 插入元素（利用API，修改原数组）
+        // arr.splice(arr.length,0,10)
+
+        // 元素插入数组中间，不使用API
+        // len = 10
+        // function insert(ele,index){
+        //     if (index<0 || index>len) {
+        //         alert('超出范围')
+        //     }
+        //     for (let i = len-1; i >= index; i--) {
+        //         arr[i+1] = arr[i]
+        //     }
+        //     arr[index] = ele
+        //     len++
+        // }
+        // insert(128,5)
+
+        // 删除（利用API，修改原数组）
+        // arr.splice(arr.length-1,1)
+
+        // 尾部插入元素push，修改原数组
+        //arr.push(10)
+       
+
+        // 尾部删除元素pop，修改原数组
+        // arr.pop()
+        // console.log(arr)
+
+        // 删除数组中的元素，不使用API
+        // function deleteEle(index) {
+        //     if (index<0 || index>len) {
+        //         alert('无效')
+        //     }
+        //     for (let i = index; i <= len-2; i++) {
+        //         arr[i] = arr[i+1]
+        //     }
+        //     len--
+        // }
+        // deleteEle(3)
+
+        // showArr(arr)
+
+        //    every方法
+        // const test = (element) => {
+        //     return element < 10
+        // }
+        // console.log(arr.every(test))
+
+        // filter方法
+        // const test = (ele) => {
+        //     return ele < 5
+        // }
+        // console.log(arr.filter(test))
+        // console.log(arr)
+
+
+
+
+    </script>
+</body>
+</html>
