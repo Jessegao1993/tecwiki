@@ -7,180 +7,165 @@
     <title>demo</title>
 </head>
 <body>
-    <script>
-       class Node{
-            constructor(val){
-                this.val = val
-                this.next = null
-            }
-       }
+<script>
+  class Node{
+    constructor(val){
+        this.val = val
+        this.next = null
+    }
+  }
 
-       class SinglyLinkedList{
-            constructor(){
-                this.head = null
-                this.tail = null
-                this.length = 0
-            }
+  class Llist{
+    constructor(){
+        this.head = null
+        this.tail = null
+        this.length = 0
+    }
+    get(index){
+        if (index<0||index>=this.length) {
+            return null
+        }
+        let current = this.head
+        let i = 0
+        while (i !== index) {
+            current = current.next
+            i++
+        }
+        return current
+    }
+    set(index,val){
+        let current = this.get(index)
+        if(current){
+            current.val = val
+            return true
+        }
+        return false
+    }
+    push(val){
+        let newNode = new Node(val)
+        if (!this.head) {
+            this.head = newNode
+            this .tail = this.head
+        }
+        this.tail.next = newNode
+        this.tail = newNode
+        this.length++
+        return this
+    }
+    unshift(val){
+        let newNode = new Node(val)
+        if (!this.head) {
+            this.head = newNode
+            this.tail = this.head
+        }
+        newNode.next = this.head
+        this.head = newNode
+        this.length++
+    }
+    pop(){
+        if (!this.head) {
+            return false
+        }
+        let current = this.head
+        let newTail
+        while (current.next) {
+            newTail = current
+            current = current.next
+        }
+        this.tail = newTail
+        newTail.next = null
+        length--
+        if (this.length==0) {
+            this.head = null
+            this.tail = null
+        }
+        return current
+    }
+    shift(){
+        if (!this.head) {
+            return false
+        }
+        let current = this.head
+        this.head = current.next
+        length--
+        if (this.length==0) {
+            this.tail = null
+            this.head = null
+        }
+        return current
+    }
+    insert(index,val){
+        if (index<0||index>this.length) {
+            return false
+        }
+        if (index==0) {
+            return this.unshift(val)
+        }
+        if (index==this.length) {
+            return this.push(val)
+        }
 
-            get(index){
-                if (index < 0 || index >= this.length) {
-                    return null
-                }
-                const counter = 0
-                const current = this.head
-                while (counter != index) {
-                    current = current.next
-                    counter++
-                }
-                return current
-            }
+        let newNode = new Node(val)
+        let prev = this.get(index-1)
+        let current = prev.next
+        prev.next = newNode
+        newNode.next = current
+        this.length++
+    }
+    delete(index){
+        if (index<0||index>=this.length) {
+            return false
+        }
+        if (index==0) {
+            return this.shift()
+        }
+        if (index==this.length-1) {
+            return this.pop()
+        }
 
-            set(index,val){
-                const foundNode = this.get(index)
-                if (foundNode) {
-                    foundNode.val = val
-                    return true
-                }
-                return false
-            }
+        let prev = this.get(index-1)
+        let deleted = prev.next
+        prev.next = deleted.next
+        this.length--
+    }
+    reverse(){
+        let node = this.head
+        this.head = this.tail
+        this.tail = node
 
-            push(val){
-                const newNode = new Node(val)
-                if (!this.head) {
-                    this.head = newNode
-                    this.tail = this.head
-                } else {
-                    this.tail.next = newNode
-                    this.tail = newNode
-                }
-                this.length++
-                return this
-            }
+        let next
+        let prev = null
+        for (let index = 0; index < this.length; index++) {
+           next = node.next
+           node.next = prev
+           prev = node
+           node = next
+        }
+    }
+    show(){
+        let res = ''
+        for (let index = 0; index < this.length; index++) {
+            res += this.get(index).val + '->'
+        }
+        return res
+    }
+  }
 
-            pop(){
-                if (!this.head) {
-                    return undefined
-                }
-                let current = this.head
-                let newTail = current//??
-                while (current.next) {
-                    newTail = current
-                    current = current.next
-                }
-                this.tail = newTail
-                this.tail.next = null
-                this.length--
-                if (this.length === 0) {
-                    this.head = null
-                    this.tail = null
-                }
-                return current
-            }
 
-            shift(){
-                if (!this.head) {
-                    return undefined
-                }
-                let currentHead = this.head
-                this.head = currentHead.next
-                this.length--
-                if (this.length===0) {
-                    this.tail = null
-                }
-                return currentHead
-            }
 
-            unshift(val){
-                const newNode = new Node(val)
-                if (!this.head) {
-                    this.head = newNode
-                    this.tail = this.head
-                }
-                newNode.next = this.head
-                this.head = newNode
-                this.length++
-                return this
-            }
-
-            insert(index,val){
-                if (index<0 || index>this.length) {
-                    return false
-                }
-                if (index === this.length) {
-                    return !!this.push(val)//??
-                }
-                if (index === 0) {
-                    return !!this.unshift(val)
-                }
-
-                const newNode = new Node(val)
-                const prev = this.get(index-1)
-                const temp = prev.next
-                prev.next = newNode
-                newNode.next = temp
-                this.length++
-                return true
-            }
-
-            remove(index){
-                if (index<0 || index>=this.length) {
-                    return undefined
-                }
-                if (index===0) {
-                    return this.shift()
-                }
-                if (index===this.length-1) {
-                    return this.pop()
-                }
-
-                const previousNode = this.get(index-1)
-                const removed = previousNode.next
-                previousNode.next = removed.next
-                this.length--
-                return removed
-            }
-
-            reverse(){
-                const node = this.head
-                this.head = this.tail
-                this.tail = node
-
-                let next
-                const prev = null
-                for (let i = 0; i < this.length; i++) {
-                    next = node.next
-                    node.next = prev
-                    prev = node
-                    node = next
-                }
-                return this
-            }
-
-       }
-
-       let llist = new SinglyLinkedList()
-       llist.push(1)
-       llist.push(2)
-       llist.push(3)
-       llist.push(4)
-       llist.push(5)
-
-       
-       llist.set(0,1)
-       llist.push(6)
-       llist.pop()
-       llist.unshift(0)
-       llist.shift()
-       llist.insert(3,100)
-       llist.remove(3)
-       llist.reverse()
-
-       //let result = llist.get(0)
-       let res = ''
-       for(let i=0;i<llist.length;i++){
-            res += llist.get(i)
-       }
-       console.log(res)
-    </script>
+    
+   let llist = new Llist()
+   llist.push(1)
+   llist.push(2)
+   llist.push(3)
+   llist.push(4)
+ 
+ 
+  console.log(llist.show())
+   llist.set(0,100)
+   console.log(llist.show())
+   llist.reverse()
+   console.log(llist.show())
+</script>
 </body>
 </html>

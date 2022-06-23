@@ -4,89 +4,171 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>linkedlist-basic</title>
+    <title>demo</title>
 </head>
 <body>
-    <script>
-        // js无原生链表，用类模拟一个
-        // 需要一个链表体类和一个节点类
+<script>
+      // 为列表中的每一个节点创建一个类
+class Node{
+    // 每一个节点有两个属性，其值和指向下一个值的指针
+    constructor(val){
+        this.val = val
+        this.next = null
+    }
+}
 
-        // 节点类
-       class Node{
-            constructor(data){
-                this.data = data
-                this.next = null
-            }
-       }
+//为列表创建一个类
+class SinglyLinkedList{
+    // 列表有三个属性，头、尾和列表大小
+    constructor(){
+        this.head = null
+        this.tail = null
+        this.length = 0
+    }
+    // 向push方法传入一个值作为参数，并将其赋值给队列的尾
+    push(val) {
+        let newNode = new Node(val)
+        if (!this.head){
+            this.head = newNode
+            this.tail = this.head
+        } else {
+            this.tail.next = newNode
+            this.tail = newNode
+        }
+        this.length++
+        return this
+    }
+    // pop方法删除队列尾
+    pop() {
+        if (!this.head) return undefined
+        let current = this.head
+        let newTail = current
+        while (current.next) {
+            newTail = current
+            current = current.next
+        }
+        this.tail = newTail
+        this.tail.next = null
+        this.length--
+        if (this.length === 0) {
+            this.head = null
+            this.tail = null
+        }
+        return current
+    }
+    // shift方法删除队列头
+    shift() {
+        if (!this.head) return undefined
+        var currentHead = this.head
+        this.head = currentHead.next
+        this.length--
+        if (this.length === 0) {
+            this.tail = null
+        }
+        return currentHead
+    }
+    // unshift方法将一个值作为参数并赋值给队列的头
+    unshift(val) {
+        let newNode = new Node(val)
+        if (!this.head) {
+            this.head = newNode
+            this.tail = this.head
+        }
+        newNode.next = this.head
+        this.head = newNode
+        this.length++
+        return this
+    }
+    // get方法将一个索引作为参数，并返回此索引所在节点的值
+    get(index) {
+        if(index < 0 || index >= this.length) return null
+        let counter = 0
+        let current = this.head
+        while(counter !== index) {
+            current = current.next
+            counter++
+        }
+        return current
+    }
+    // set方法将索引和值作为参数，修改队列中索引所在的节点值为传入的参数值
+    set(index, val) {
+        let foundNode = this.get(index)
+        if (foundNode) {
+            foundNode.val = val
+            return true
+        }
+        return false
+    }
+    // insert方法将索引和值作为参数，在队列索引位置插入传入的值
+    insert(index, val) {
+        if (index < 0 || index > this.length) return false
+        if (index === this.length) return !!this.push(val)
+        if (index === 0) return !!this.unshift(val)
 
-        // 链表体类   
-       class LinkedList{
-            constructor(){
-                this.head = null
-                this.tail = null
-                this.length = 0
-            }
+        let newNode = new Node(val)
+        let prev = this.get(index - 1)
+        let temp = prev.next
+        prev.next = newNode
+        newNode.next = temp
+        this.length++
+        return true
+    }
+    // remove方法将索引作为参数，在队列中删除索引所在的值
+    remove(index) {
+        if(index < 0 || index >= this.length) return undefined
+        if(index === 0) return this.shift()
+        if(index === this.length - 1) return this.pop()
+        let previousNode = this.get(index - 1)
+        let removed = previousNode.next
+        previousNode.next = removed.next
+        this.length--
+        return removed
+    }
+    // reverse方法反转队列和所有指针，让队列的头尾对调
+    reverse(){
+      let node = this.head
+      this.head = this.tail
+      this.tail = node
+      let next
+      let prev = null
+      for(let i = 0; i < this.length; i++) {
+        next = node.next
+        node.next = prev
+        prev = node
+        node = next
+      }
+      return this
+    }
+}
 
-            // 末尾追加节点
-            append(data){
-                let node = new Node(data)
-                if (!this.head) {
-                    this.head = node
-                } else {
-                    let p = this.head
-                    while (p.next) {
-                        p = p.next
-                    }
-                    p.next = node
-                }
-                this.length++
-            }
+       let llist = new SinglyLinkedList()
+       llist.push(1)
+       llist.push(2)
+       llist.push(3)
+       llist.push(4)
+       llist.push(5)
 
-            // 查找节点
-            find(data){
-                let p = this.head
-                while (p && p.data != data) {
-                    p = p.next
-                }
-                return p
-            }
+        console.log(llist.get(4))
+       
+    //    llist.set(0,1)
+    //    llist.push(6)
+    //    llist.pop()
+    //    llist.unshift(0)
+    //    llist.shift()
+    //    llist.insert(3,100)
+    //    llist.remove(3)
+    //    llist.reverse()
 
-           
-            // 插入节点
-            insertNode(pos,data){
-                let newNode = new Node(data)
-                let current = this.head
-                let pre = this.head
-                if (pos>this.length) {
-                    console.log('超范围')
-                } else {
-                    if (pos) {
-                        let i = 1
-                        while (pos<i) {
-                            pre = current
-                            current = current.next
-                            i++
-                        }
-                        pre.next = newNode
-                        newNode.next = current
-                    } else {
-                        newNode.next = this.head
-                        this.head = newNode
-                    }
-                    this.length++
-                }
-            }
-       }
+    //    console.log(llist.length)
 
-       let llist = new LinkedList()
-       llist.append(1)
-       llist.append(2)
-       llist.append(3)
-       llist.append(4)
-       llist.append(5)
-       llist.append(6)
-       llist.insertNode(4,100)
-       console.log(llist.find(100))
+        // console.log(llist.get(0).val)
+
+    //    let res = ''
+    //    for(let i=0;i<llist.length;i++){
+    //         res += llist.get(i).val + '->'
+    //    }
+    //    console.log(res)
+
     </script>
 </body>
 </html>
