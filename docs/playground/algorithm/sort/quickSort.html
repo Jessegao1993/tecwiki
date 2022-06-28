@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quick-sort</title>
+</head>
+<body>
+    <!-- 
+
+        快速排序
+        
+		快速排序使用分治法来把一个串（list）分为两个子串（sub-lists）。具体算法描述如下：
+			<1>.从数列中挑出一个元素，称为 "基准"（pivot）；
+			<2>.重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；
+			<3>.递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。
+		
+
+利用分治法来处理快排，主要的思想是：
+
+在数据集之中，选择一个元素作为”基准”（pivot）。
+所有小于”基准”的元素，都移到”基准”的左边；所有大于”基准”的元素，都移到”基准”的右边。这个操作称为分区 (partition) 操作，分区操作结束后，基准元素所处的位置就是数组最终排序后它的位置。
+对”基准”左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
+步骤：
+
+首先，把基准元素移到結尾（如果直接选择最后一个元素为基准元素，那就不用移动）；
+然后从左到右（除了最后的基准元素），循环移动小于等于基准元素的元素到数组的开头，每次移动 storeIndex 自增 1，表示下一个小于基准元素将要移动到的位置；
+循环结束后 storeIndex 所代表的的位置就是基准元素的所有摆放的位置；所以最后将基准元素所在位置（这里是 right）与 storeIndex 所代表的的位置的元素交换位置。
+完成一次分区；
+
+tips：这里为什么要把基准元素放到数组的最后一个元素的位置上，是为了方便对数组中除了基准元素以外的所有元素进行遍历，并方便在找到基准元素的排序位置 storeIndex 后进行两两交换。倘若不如此，需要将该基准元素从原数组中取出来（类似阮一峰版做法arr.splice(pivotIndex, 1)）,循环遍历完所有除基准元素外的元素后，找到基准元素的最后排序位置 storeIndex后，需要将基准元素插入进来（用到插入排序的思想），显然这种方式较为复杂。
+
+     -->
+    <script>
+        function quickSort(arr){
+            function swap(arr,i,j){
+                let temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+            }
+
+            function partition(arr,left,right){
+                let pivot = arr[right]
+                let storeIndex = left
+                for(let i=left;i<right;i++){
+                    if(arr[i]<pivot){
+                        swap(arr,i,storeIndex)
+                        storeIndex++
+                    }
+                }
+                swap(arr,storeIndex,right)
+                return storeIndex
+            }
+
+            function sort(arr,left,right){
+                if(left>right){
+                    return
+                }
+
+                let storeIndex = partition(arr,left,right)
+                sort(arr,left,storeIndex-1)
+                sort(arr,storeIndex+1,right)
+            }
+            sort(arr,0,arr.length-1)
+            return arr
+        }
+
+        let arr = [6,5,4,3,2,1]
+        console.log(quickSort(arr))
+    </script>
+</body>
+</html>l

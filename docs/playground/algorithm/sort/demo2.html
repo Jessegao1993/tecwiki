@@ -8,54 +8,118 @@
 </head>
 <body>
 	<script>
-		/* 快速排序
-		快速排序使用分治法来把一个串（list）分为两个子串（sub-lists）。具体算法描述如下：
-			<1>.从数列中挑出一个元素，称为 "基准"（pivot）；
-			<2>.重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；
-			<3>.递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。
-		*/
+
 	
-		//方法1
-		function quickSort(array, left, right) {
-        	if (left < right) {
-           		var x = array[right], i = left - 1, temp;
-				for (var j = left; j <= right; j++) {
-					if (array[j] <= x) {
-						i++;
-						temp = array[i];
-						array[i] = array[j];
-						array[j] = temp;
-					}
-				}
-            quickSort(array, left, i - 1);
-            quickSort(array, i + 1, right);
-        }
-        
-        return array;
-    }
+	//快速排序方法1：原地快排
+	// function quickSort(arr) {
+	// 		// 交换函数
+	// 	function swap(arr, i, k) {
+	// 		let temp = arr[i];
+	// 		arr[i] = arr[k];
+	// 		arr[k] = temp;
+	// 	}
+	// 	// 数组分区函数，左小右大
+	// 	function partition(arr, left, right) {
+	// 		let storeIndex = left;
+	// 		let pivot = arr[right]; // 直接选最右边的元素为基准元素
+	// 		for(let i = left; i < right; i++) {
+	// 			if(arr[i] < pivot) {
+	// 				swap(arr, storeIndex, i);
+	// 				storeIndex++; // 交换位置后，storeIndex 自增 1，代表下一个可能要交换的位置
+	// 			} 
+	// 		}
+	// 		swap(arr, storeIndex, right); // 将基准元素放置到最后的正确位置上
+	// 		return storeIndex;
+	// 	}
+
+	// 	function sort(arr, left, right) {
+	// 		if(left > right) {
+	// 			return;
+	// 		}
+	// 		let storeIndex = partition(arr, left, right);
+	// 		sort(arr, left, storeIndex - 1);
+	// 		sort(arr, storeIndex + 1, right);
+	// 	}
+	// 	sort(arr, 0, arr.length - 1);
+	// 	return arr;
+	// }
 
 
+	//方法2：费内存
+	// function quickSort(arr){
+	// 	if(arr.length<=1) {return arr}
+	// 	let pivotIndex  = Math.floor(arr.length/2)
+	// 	let pivot = arr.splice(pivotIndex,1)[0]
+	// 	let left = []
+	// 	let right = []
+	// 	for(let i=0;i<arr.length;i++){
+	// 		if(arr[i]<pivot){
+	// 			left.push(arr[i])
+	// 		}else{
+	// 			right.push(arr[i])
+	// 		}
+	// 	}
+	// 	return quickSort(left).concat([pivot],quickSort(right))
+	// }
 
+	
+	// 归并排序
+	// function mergeSort(arr){
+	// 	let len = arr.length
+	// 	if (len<2) {
+	// 		return arr
+	// 	}
+	// 	let mid = Math.floor(len/2)
+	// 	let left = arr.slice(0,mid)
+	// 	let right = arr.slice(mid)
+	// 	return merge(mergeSort(left),mergeSort(right))
+	// }
 
-		// 方法2
-		// function quickSort(arr){
-		// 	if(arr.length<=1) {return arr}
-		// 	let pivotIndex  = Math.floor(arr.length/2)
-		// 	let pivot = arr.splice(pivotIndex,1)[0]
-		// 	let left = []
-		// 	let right = []
-		// 	for(let i=0;i<arr.length;i++){
-		// 		if(arr[i]<pivot){
-		// 			left.push(arr[i])
-		// 		}else{
-		// 			right.push(arr[i])
-		// 		}
-		// 	}
-		// 	return quickSort(left).concat([pivot],quickSort(right))
-		// }
+	// function merge(left,right) {
+	// 	let res = []
+	// 	while (left.length&&right.length) {
+	// 		if (left[0]<=right[0]) {
+	// 			res.push(left.shift())
+	// 		} else {
+	// 			res.push(right.shift())
+	// 		}
+	// 	}
 
-let arr = [6,5,4,3,2,1]
-console.log(quickSort(arr,0,arr.length-1))
+	// 	while (left.length) {
+	// 		res.push(left.shift())
+	// 	}
+
+	// 	while(right.length){
+	// 		res.push(right.shift())
+	// 	}
+
+	// 	return res
+	// }
+
+	// 希尔排序
+	// function shellSort(arr){
+	// 	let len = arr.length
+	// 	let temp
+	// 	let gap = 1
+
+	// 	while(gap<len/3){
+	// 		gap=gap*3+1
+	// 	}
+
+	// 	for(gap;gap>0;gap=Math.floor(gap/3)){
+	// 		for(let i=gap;i<len;i++){
+	// 			temp = arr[i]
+	// 			for(var j=i-gap;j>=0&&arr[j]>temp;j-=gap){
+	// 				arr[j+gap] = arr[j]
+	// 			}
+	// 			arr[j+gap] = temp
+	// 		}
+	// 	}
+	// 	return arr
+	// }
+
+	// let arr = [6,5,4,3,2,1]
+    // console.log(shellSort(arr))
 	</script>
 </body>
 </html>
