@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo3</title>
+</head>
+<body>
+    <script>
+// bubble srot
+       function bubbleSort(arr){
+          var len = arr.length
+          for(var i=0;i<len;i++){
+            for(var j=0;j<len-1-i;j++){
+                if(arr[j]>arr[j+1]){
+                    let temp = arr[j+1]
+                    arr[j+1] = arr[j]
+                    arr[j] = temp
+                }
+            }
+          }
+          return arr
+       }
+
+// selection sort
+       function selectionSort(arr){
+           var len = arr.length
+           var minIndex
+           for(var i=0;i<len-1;i++){
+                minIndex = i
+                for(var j=i+1;j<len;j++){
+                    if(arr[j]<arr[minIndex]){
+                        minIndex = j
+                    }
+                }
+                var temp = arr[i]
+                arr[i] = arr[minIndex]
+                arr[minIndex] = temp
+           }
+           return arr
+       }
+       
+// insertion sort
+       function insertionSort(arr){
+            var len = arr.length
+            var key
+            for(var i=1;i<len;i++){
+                key = arr[i]
+                var j=i-1
+                while(j>=0&&arr[j]>key){
+                    arr[j+1] = arr[j]
+                    j--
+                }
+                arr[j+1] = key
+            }
+            return arr
+       }
+
+// merge sort
+       function mergeSort(arr){
+            var len = arr.length
+            if(len<2) return arr
+            var mid = Math.floor(len/2)
+            var left = arr.slice(0,mid)
+            var right = arr.slice(mid)
+            return merge(mergeSort(left),mergeSort(right)) 
+       }
+       function merge(left,right){
+            var res = []
+            while(left.length&&right.length){
+                if (left[0]<=right[0]) {
+                    res.push(left.shift())
+                } else {
+                    res.push(right.shift())
+                }
+            }
+            while (left.length) {
+                res.push(left.shift())
+            }
+            while(right.length){
+                res.push(right.shift())
+            }
+            return res
+       }
+
+// quick sort
+       function quickSort(arr){
+            function swap(arr,i,j){
+                var temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+            }
+
+            function partition(arr,left,right){
+                var pivot = arr[right]
+                var storeIndex = left
+                for(var i=left;i<right;i++){
+                    if(arr[i]<pivot){
+                        swap(arr,i,storeIndex)
+                        storeIndex++
+                    }
+                }
+                swap(arr,right,storeIndex)
+                return storeIndex
+            }
+
+            function sort(arr,left,right){
+                if(left>right){
+                    return
+                }
+                var storeIndex = partition(arr,left,right)
+                sort(arr,left,storeIndex-1)
+                sort(arr,storeIndex+1,right)
+            }
+            sort(arr,0,arr.length-1)
+            return arr
+       }
+
+//  shell sort
+       function shellSort(arr){
+          var gap = 1;
+          var len = arr.length
+          var temp
+
+          while(gap<len/5){
+            gap=gap*5+1
+          }
+
+          for(gap;gap>0;gap=Math.floor(gap/5)){
+            for(var i=gap;i<len;i++){
+                temp = arr[i]
+                for(var j = i-gap;j>=0&&arr[j]>temp;j-=gap){
+                    arr[j+gap] = arr[j]
+                }
+                arr[j+gap] = temp
+            }
+          }
+
+
+        return arr
+       }
+
+
+
+        var arr = [4,3,2,1]
+        console.log(bubbleSort(arr))
+        console.log(selectionSort(arr))
+        console.log(insertionSort(arr))
+        console.log(mergeSort(arr))
+        console.log(quickSort(arr))
+        console.log(shellSort(arr))
+    </script>
+</body>
+</html>
