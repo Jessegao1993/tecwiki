@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>counting sort</title>
+</head>
+<body>
+    <script>
+        /*
+            计数排序的步骤如下
+
+            查找待排序数组中最大和最小的元素
+
+            统计每个值为i的元素的出现次数
+
+            对所有计数开始累加(从min开始,每一项和前一项相加)
+
+            反向填充目标数组,将每个元素i放在新数组的第C[i]项,每放一个元素,计数-1.
+        */
+
+
+        function countingSort(array) {
+            var len = array.length,
+                B = [],
+                C = [],
+                min = max = array[0];
+
+            for (var i = 0; i < len; i++) {
+                min = min <= array[i] ? min : array[i];
+                max = max >= array[i] ? max : array[i];
+                C[array[i]] = C[array[i]] ? C[array[i]] + 1 : 1;
+            }
+            for (var j = min; j < max; j++) {
+                C[j + 1] = (C[j + 1] || 0) + (C[j] || 0);
+            }
+            for (var k = len - 1; k >= 0; k--) {
+                B[C[array[k]] - 1] = array[k];
+                C[array[k]]--;
+            }
+        
+            return B;
+        }
+        
+    var arr = [2, 2, 3, 8, 7, 1, 2, 2, 2, 7, 3, 9, 8, 2, 1, 4, 2, 4, 6, 9, 2];
+    console.log(countingSort(arr)); //[1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 6, 7, 7, 8, 8, 9, 9]
+
+    </script>
+</body>
+</html>
